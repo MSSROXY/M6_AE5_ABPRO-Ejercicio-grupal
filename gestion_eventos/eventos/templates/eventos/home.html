@@ -1,0 +1,14 @@
+{% extends "eventos/base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1>Bienvenido a la Plataforma de Gestión de Eventos</h1>
+    <p class="lead">Regístrate, inicia sesión y administra tus eventos de manera fácil.</p>
+    {% if not user.is_authenticated %}
+        <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Iniciar sesión</a>
+    {% endif %}
+    <a href="{% url 'eventos:listar_eventos' %}" class="btn btn-secondary btn-lg">Ver Eventos</a>
+</div>
+{% endblock %}

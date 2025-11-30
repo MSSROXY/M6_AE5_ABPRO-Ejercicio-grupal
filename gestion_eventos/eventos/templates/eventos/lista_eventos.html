@@ -1,0 +1,39 @@
+{% extends "eventos/base.html" %}
+
+{% block title %}Eventos{% endblock %}
+
+{% block content %}
+<h2>Lista de Eventos</h2>
+
+{% if perms.eventos.add_evento %}
+    <a href="{% url 'eventos:crear_evento' %}" class="btn btn-success mb-3">Crear Evento</a>
+{% endif %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Privado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for evento in eventos %}
+        <tr>
+            <td>{{ evento.nombre }}</td>
+            <td>{{ evento.fecha }}</td>
+            <td>{{ evento.privado|yesno:"Sí,No" }}</td>
+            <td>
+                {% if perms.eventos.change_evento %}
+                    <a href="{% url 'eventos:editar_evento' evento.id %}" class="btn btn-primary btn-sm">Editar</a>
+                {% endif %}
+                {% if perms.eventos.delete_evento %}
+                    <a href="{% url 'eventos:eliminar_evento' evento.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
